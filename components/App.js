@@ -2,10 +2,20 @@ const React = require('react');
 
 const FruitBasket = require('./FruitBasket');
 
-const App = () => {
-  return (
-    <FruitBasket />
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      fruit: [],
+      filters: [],
+      currentFilter: null
+    }
+  }
+    render() {
+      return(
+      <div>
+      </div>)
+    }
 }
 
 module.exports = App;
