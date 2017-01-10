@@ -4,32 +4,25 @@ const { Component } = require('react');
 const Filter = require('./Filter');
 const FilteredFruitList = require('./FilteredFruitList.js');
 
-class FruitBasket extends Component {
-  constructor() {
-    super();
 
-    this.state = {
-      filters: [],
-      selectedFilter: null
-    };
+const FruitBasket = (props) =>{
 
-    this.handleFilterChange = this.handleFilterChange.bind(this);
-  }
+  return (
+    <div className="fruit-basket">
+      <Filter handleChange={props.updateFilterCallback} filters={props.filters}/>
+      <FilteredFruitList filter={props.currentFilter} fruit={props.fruit}/>
+    </div>
+  )
+}
 
-  handleFilterChange(e) {
-    console.log('new filter: ', e.target.value);
-    this.setState({ selectedFilter: e.target.value });
-  }
+//the fruitBasket component is a dumb component with no state at all. it inherates props from the parent and the props change when the parents state change causing the component to rerender. We render a filter compoennt which takes in a handleChange prop which is set the the callback function prop of the fruitbasket component. filters is set the filters array
+//the component filtered fruit list takes in a prop of filter whcih takes in a prop of the current filter and the fruits
 
-  render() {
-    return (
-      <div className="fruit-basket">
-        <Filter handleChange={this.handleFilterChange} />
-        <FilteredFruitList
-          filter={this.state.selectedFilter} />
-      </div>
-    );
-  }
+FruitBasket.defaultProps = {
+  fruit: [],
+  filters: null,
+  currentFilter: null,
+  updateFilterCallback: function() {}
 }
 
 module.exports = FruitBasket;
