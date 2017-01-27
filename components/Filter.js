@@ -1,37 +1,22 @@
 const React = require('react');
-const { Component } = require('react');
 
-class Filter extends Component {
-  constructor() {
-    super();
+export default function Filter({filters, handleChange}){
+     return (
+        <select onChange={handleChange} defaultValue='all'>
+          <option value='all'>All</option>
+          {filters.map(filter =>
+            <option key={filter} value={filter}>{filter}</option>
+          )}
+        </select>
+      )
+    }
 
-    this.state = {
-      filters: []
-    };
+Filter.defaultProps = {
+  filters: [],
+  handleChange: function() {}
+};
 
-    this.fetchFilters = this.fetchFilters.bind(this);
-  }
+// refactored before and after
 
-  componentWillMount() {
-    this.fetchFilters();
-  }
-
-  fetchFilters() {
-    fetch('/api/fruit_types')
-      .then(res => res.json())
-      .then(filters => this.setState({filters: filters}));
-  }
-
-  render() {
-    return (
-      <select onChange={this.props.handleChange} defaultValue='all'>
-        <option value='all'>All</option>
-        {this.state.filters.map(filter =>
-          <option key={filter} value={filter}>{filter}</option>
-        )}
-      </select>
-    );
-  }
-}
 
 module.exports = Filter;
