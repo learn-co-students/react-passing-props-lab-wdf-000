@@ -4,32 +4,21 @@ const { Component } = require('react');
 const Filter = require('./Filter');
 const FilteredFruitList = require('./FilteredFruitList.js');
 
-class FruitBasket extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      filters: [],
-      selectedFilter: null
-    };
-
-    this.handleFilterChange = this.handleFilterChange.bind(this);
-  }
-
-  handleFilterChange(e) {
-    console.log('new filter: ', e.target.value);
-    this.setState({ selectedFilter: e.target.value });
-  }
-
-  render() {
+const FruitBasket = ({ fruit, filters, selectedFilter, updateFilterCallback}) => {
     return (
       <div className="fruit-basket">
-        <Filter handleChange={this.handleFilterChange} />
+        <Filter handleChange={updateFilterCallback} filters={filters} />
         <FilteredFruitList
-          filter={this.state.selectedFilter} />
+          filter={selectedFilter} fruit={fruit} />
       </div>
     );
-  }
 }
+
+FruitBasket.defaultProps = {
+  fruit: [],
+  filters: [],
+  currentFilter: function() {},
+  updateFilterCallback: function() {}
+};
 
 module.exports = FruitBasket;
