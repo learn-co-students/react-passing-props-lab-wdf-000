@@ -29,8 +29,12 @@ class App extends Component {
   }
 
   handleFilterChange(e) {
-    this.setState({ selectedFilter: e.target.value });
-  }
+    if (e.target.value === 'all') {
+      this.setState({ selectedFilter: null });
+    } else {
+      this.setState({ selectedFilter: e.target.value });
+    }
+}
 
 
   render() {
