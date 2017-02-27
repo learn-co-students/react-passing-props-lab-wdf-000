@@ -12,10 +12,9 @@ class App extends React.Component {
     }
 
     this.updateFilter = this.updateFilter.bind(this)
-
   }
   componentWillMount() {
-    this.updateFilter();
+    this.fetchFilter();
     this.fetchFruit();
   }
 
@@ -25,10 +24,15 @@ class App extends React.Component {
       .then(fruit => this.setState({fruit: fruit}));
   }
 
-  updateFilter() {
+  fetchFilter() {
     fetch('/api/fruit_types')
       .then(res => res.json())
       .then(filters => this.setState({filters: filters}));
+  }
+
+  updateFilter(e) {
+    console.log('new filter: ', e.target.value);
+    this.setState({ currentFilter: e.target.value });
   }
 
   render(){
